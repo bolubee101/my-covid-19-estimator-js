@@ -12,7 +12,7 @@ const normalize = (data) => {
 };
 
 const covid19ImpactEstimator = (data) => {
-  const impact = {};
+  const impact ={};
   const severeImpact = {};
   const days = normalize(data);
   const Tp = Math.trunc(days / 3);
@@ -26,6 +26,7 @@ const covid19ImpactEstimator = (data) => {
   impact.severeCasesByRequestedTime = Math.trunc(
     0.15 * impact.infectionsByRequestedTime
   );
+  
   severeImpact.severeCasesByRequestedTime = Math.trunc(
     0.15 * severeImpact.infectionsByRequestedTime
   );
