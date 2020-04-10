@@ -12,7 +12,7 @@ const normalize = (data) => {
 };
 
 const covid19ImpactEstimator = (data) => {
-  const impact ={};
+  const impact = {};
   const severeImpact = {};
   const days = normalize(data);
   const Tp = Math.trunc(days / 3);
@@ -26,7 +26,7 @@ const covid19ImpactEstimator = (data) => {
   impact.severeCasesByRequestedTime = Math.trunc(
     0.15 * impact.infectionsByRequestedTime
   );
-  
+
   severeImpact.severeCasesByRequestedTime = Math.trunc(
     0.15 * severeImpact.infectionsByRequestedTime
   );
@@ -39,27 +39,32 @@ const covid19ImpactEstimator = (data) => {
     0.35 * data.totalHospitalBeds - severeImpact.severeCasesByRequestedTime
   );
 
-  impact.casesForICUByRequestedTime = Math.trunc(0.05 * impact.infectionsByRequestedTime);
+  impact.casesForICUByRequestedTime = Math.trunc(
+    0.05 * impact.infectionsByRequestedTime
+  );
 
-  severeImpact.casesForICUByRequestedTime =
-   Math.trunc( 0.05 * severeImpact.infectionsByRequestedTime);
+  severeImpact.casesForICUByRequestedTime = Math.trunc(
+    0.05 * severeImpact.infectionsByRequestedTime
+  );
 
-  impact.casesForVentilatorsByRequestedTime =
-    Math.trunc(0.02 * impact.infectionsByRequestedTime);
+  impact.casesForVentilatorsByRequestedTime = Math.trunc(
+    0.02 * impact.infectionsByRequestedTime
+  );
 
-  severeImpact.casesForVentilatorsByRequestedTime =
-    Math.trunc(0.02 * severeImpact.infectionsByRequestedTime);
+  severeImpact.casesForVentilatorsByRequestedTime = Math.trunc(
+    0.02 * severeImpact.infectionsByRequestedTime
+  );
 
   impact.dollarsInFlight =
-    impact.infectionsByRequestedTime *
-    data.region.avgDailyIncomeInUSD *
-    data.region.avgDailyIncomePopulation *
+    (impact.infectionsByRequestedTime *
+      data.region.avgDailyIncomeInUSD *
+      data.region.avgDailyIncomePopulation) /
     days;
 
   severeImpact.dollarsInFlight =
-    severeImpact.infectionsByRequestedTime *
-    data.region.avgDailyIncomeInUSD *
-    data.region.avgDailyIncomePopulation *
+    (severeImpact.infectionsByRequestedTime *
+      data.region.avgDailyIncomeInUSD *
+      data.region.avgDailyIncomePopulation) /
     days;
 
   const result = {
